@@ -1,0 +1,2 @@
+# Exclude files from static asset upload if needed
+# _worker.js
