@@ -1,11 +1,11 @@
-name = "{{REPO_NAME}}"
+name = "agent-playground"
 main = "src/index.ts"
-compatibility_date = "{{TODAYS_DATE}}"
+compatibility_date = "2026-08-22"
 
 [assets]
 directory = "./dist"
 
 [env.production]
-name = "{{REPO_NAME}}-production"
+name = "agent-playground-production"
 [env.production.assets]
 directory = "./dist"
