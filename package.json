@@ -1,0 +1,15 @@
+{
+  "name": "{{REPO_NAME}}",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0",
+    "wrangler": "4"
+  }
+}
