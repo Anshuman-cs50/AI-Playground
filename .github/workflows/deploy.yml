@@ -1,14 +1,13 @@
 name: Deploy
 on:
   push:
-    branches: [main, master]
+    branches: [main]
 
 jobs:
   deploy:
-    uses: your-org/pipeline-repo/.github/workflows/frontend-deploy.yml@main
+    uses: BubbleIndexOne/Build-Pipeline/.github/workflows/deploy.yml@main
     with:
       environment: production
-      base_path: "/{{REPO_NAME}}/"
     secrets:
       CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
       CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
