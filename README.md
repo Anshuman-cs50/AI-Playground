@@ -1,5 +1,5 @@
 # {{REPO_NAME}} (Frontend App)
-
+ 
 Vite-based frontend application deployed as a Cloudflare Worker serving static assets.
 
 ## Development
