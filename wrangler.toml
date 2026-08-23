@@ -5,7 +5,12 @@ compatibility_date = "2026-08-22"
 [assets]
 directory = "./out"
 
+[env.dev]
+name = "agent-playground-dev"
+[env.dev.assets]
+directory = "./out"
+
 [env.production]
-name = "agent-playground-production"
+name = "agent-playground"
 [env.production.assets]
 directory = "./out"
