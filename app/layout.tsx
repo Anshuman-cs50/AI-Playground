@@ -1,6 +1,10 @@
 import { Analytics } from '@vercel/analytics/next'
+import { Geist, JetBrains_Mono } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+
+const geist = Geist({ subsets: ['latin'], variable: '--font-geist' })
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono' })
 
 export const metadata: Metadata = {
   title: 'Console — Developer workspace',
@@ -9,14 +13,14 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
-  themeColor: '#f7f8fa',
+  colorScheme: 'dark',
+  themeColor: '#0A0A0B',
   userScalable: false,
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className={`${geist.variable} ${jetbrainsMono.variable} bg-background`}>
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
