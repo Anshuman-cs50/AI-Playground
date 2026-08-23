@@ -60,7 +60,15 @@ export async function callModel(apiKey: string, providerId: string, modelId: str
       throw new Error(errorData.error?.message || `API error: ${response.status}`);
     }
     
-    return response.json();
+    const data = await response.json();
+    return {
+      ...data,
+      usage: {
+        input: data.usage?.input_tokens || 0,
+        output: data.usage?.output_tokens || 0,
+        total: (data.usage?.input_tokens || 0) + (data.usage?.output_tokens || 0)
+      }
+    };
   } else if (providerId === 'openai') {
     const response = await fetch(OPENAI_API_URL, {
       method: "POST",
@@ -82,7 +90,12 @@ export async function callModel(apiKey: string, providerId: string, modelId: str
     
     const data = await response.json();
     return {
-      content: [{ text: data.choices?.[0]?.message?.content || '' }]
+      content: [{ text: data.choices?.[0]?.message?.content || '' }],
+      usage: {
+        input: data.usage?.prompt_tokens || 0,
+        output: data.usage?.completion_tokens || 0,
+        total: data.usage?.total_tokens || 0
+      }
     };
   } else if (providerId === 'google') {
     // Map standard messages [{role: 'user', content: '...'}] to Gemini format
@@ -107,8 +120,15 @@ export async function callModel(apiKey: string, providerId: string, modelId: str
     }
     
     const data = await response.json();
+    const promptTokens = data.usageMetadata?.promptTokenCount || 0;
+    const outputTokens = data.usageMetadata?.candidatesTokenCount || 0;
     return {
-      content: [{ text: data.candidates?.[0]?.content?.parts?.[0]?.text || '' }]
+      content: [{ text: data.candidates?.[0]?.content?.parts?.[0]?.text || '' }],
+      usage: {
+        input: promptTokens,
+        output: outputTokens,
+        total: data.usageMetadata?.totalTokenCount || (promptTokens + outputTokens)
+      }
     };
   } else {
     throw new Error(`Integration for provider '${providerId}' is not implemented yet.`);
